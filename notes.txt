@@ -1,0 +1,5 @@
+
+#Docker can be used to run both stateful and stateless apps
+
+stateful serv/app remembers what it has done before - databases, key-value stores
+stateless app does not have memory - web servers
