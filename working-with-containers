@@ -182,3 +182,35 @@ Server:
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 hello-world         latest              feb5d9fea6a5        7 weeks ago         13.3kB
 
+8. docker ps -aq 
+
+this returs the container ids quietly.
+
+[root@ip-10-1-254-230 ~]# docker ps -aq
+3a42433b1f97
+3a5d1a96162a
+0e6517b13b66
+f40f94dfe44b
+[root@ip-10-1-254-230 ~]#
+
+
+9. To stop multiple containers use the below command.
+
+[root@ip-10-1-254-230 ~]# docker stop $(docker ps -aq)
+3a42433b1f97
+3a5d1a96162a
+0e6517b13b66
+f40f94dfe44b
+
+
+10. Remove multiple containers.
+
+[root@ip-10-1-254-230 ~]# docker rm $(docker ps -aq)
+3a42433b1f97
+3a5d1a96162a
+0e6517b13b66
+f40f94dfe44b
+[root@ip-10-1-254-230 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+[root@ip-10-1-254-230 ~]#
+

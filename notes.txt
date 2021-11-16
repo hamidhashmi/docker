@@ -1,6 +1,54 @@
 
-# Docker along with client and daemon is called as the docker engine
-#Docker can be used to run both stateful and stateless apps
+1. # Docker along with client and daemon is called as the docker engine
+
+2. #Docker can be used to run both stateful and stateless apps
 
 stateful serv/app remembers what it has done before - databases, key-value stores
 stateless app does not have memory - web servers
+
+3. containers are based off an image.
+
+image = stopped container
+container = running image
+
+no images implies no container
+
+4. containers are like VMs i.e start stop restart, not until explicitly destroyed or deleted you lose them.
+
+remove using rm then only delete it
+
+5. containers are single process constructs. Here it is running bash and only bash.
+
+command - docker run -it --name temp ubuntu:latest /bin/bash
+
+[root@ip-10-1-254-230 ~]# docker run -it --name temp ubuntu:latest /bin/bash
+root@3a42433b1f97:/#
+
+
+Notice, the prompt has changed. Means we have logged in to the container ubuntu.
+
+root@3a42433b1f97:/# ps -elf
+F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+4 S root         1     0  0  80   0 -  1028 -      14:26 pts/0    00:00:00 /bin/bash
+0 R root        13     1  0  80   0 -  1475 -      14:27 pts/0    00:00:00 ps -elf
+root@3a42433b1f97:/# top
+top - 14:28:52 up  2:35,  0 users,  load average: 0.00, 0.00,
+Tasks:   2 total,   1 running,   1 sleeping,   0 stopped,   0
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,
+MiB Mem :    985.5 total,    147.7 free,    208.0 used,    629
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    654
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM
+    1 root      20   0    4112   3560   3004 S   0.0   0.4
+   14 root      20   0    6104   3408   2916 R   0.0   0.3
+
+The other processes seen (ps and top) are temporary processes that bash created (forked) when we ran those respective commands.
+
+If you type exit, bash exits, causing the container to exit as bash is the only running process.
+Thus, another way to exit a container without killing it is by typing ctrl+p+q
+Then docker ps - it is still running in the background.
+
+[root@ip-10-1-254-230 ~]# docker ps
+CONTAINER ID        IMAGE                                COMMAND             CREATED             STATUS              PORTS                  NAMES
+3a42433b1f97        ubuntu:latest                        "/bin/bash"         18 minutes ago      Up 18 minutes                              temp
+
